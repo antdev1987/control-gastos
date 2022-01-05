@@ -91,7 +91,8 @@ header h1 {
 
 .formulario input[type="text"],
 .formulario input[type="number"] {
-    background-color: var(--gris-claro);
+    /* background-color: var(--gris-claro); */
+    background-color: rgb(212, 208, 208);
     border-radius: 1rem;
     padding: 1rem;
     border: none;
