@@ -4,7 +4,7 @@ import CerrarBtn from '../img/cerrar.svg'
 const Modal = ({ setModal, modal }) => {
 
     const [animarModal, setAnimarModal] = useState(false)
-
+    const [inputs, setInputs] =useState({nombre:'',cantidad:0,categoria:''})
 
     useEffect(() => {
 
@@ -24,6 +24,24 @@ const Modal = ({ setModal, modal }) => {
 
     }
 
+    const handleInputs=(e)=>{
+
+        let value = e.target.value
+ 
+        setInputs((prev)=>{
+            if(e.target.name === 'cantidad'){
+                return {
+                    ...prev,
+                    [e.target.name]: Number(value)
+                }
+            }
+
+            return {
+                ...prev,
+                [e.target.name]: value
+            }
+        })
+    }
 
 
     return (
@@ -47,6 +65,8 @@ const Modal = ({ setModal, modal }) => {
                         type='text'
                         name='nombre'
                         placeholder='Anade nombre de gasto'
+                        value={inputs.nombre}
+                        onChange={handleInputs}
                     />
                 </div>
 
@@ -57,13 +77,20 @@ const Modal = ({ setModal, modal }) => {
                         type='number'
                         name='cantidad'
                         placeholder='Ingresa una canitdad'
+                        value={inputs.cantidad}
+                        onChange={handleInputs}
                     />
                 </div>
 
                 <div className='campo'>
                     <label htmlFor='categoria'>Categoria</label>
 
-                    <select id='categoria'>
+                    <select
+                        id='categoria'  
+                        name='categoria'
+                        value={inputs.categoria}
+                        onChange={handleInputs}
+                        >
                         <option value=''> -- Seleccione --</option>
                         <option value='ahorro'>Ahorro</option>
                         <option value='comida'>Comida</option>
