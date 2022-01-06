@@ -1,11 +1,15 @@
 import { useState, useEffect } from 'react'
+import Mensaje from './Mensaje'
 import CerrarBtn from '../img/cerrar.svg'
 
-const Modal = ({ setModal, modal }) => {
+const Modal = ({ setModal, modal, guardarGasto }) => {
 
     const [animarModal, setAnimarModal] = useState(false)
     const [inputs, setInputs] =useState({nombre:'',cantidad:0,categoria:''})
+    const {nombre,cantidad,categoria} = inputs
+    const [mensaje,setMensaje]= useState('')
 
+    //aqui abre el modal con efecto
     useEffect(() => {
 
         setTimeout(() => {
@@ -14,7 +18,7 @@ const Modal = ({ setModal, modal }) => {
 
     }, [modal])
 
-
+    //ciera el modal con efecto
     const ocultarModal = () => {
 
         setAnimarModal(false)
@@ -24,6 +28,7 @@ const Modal = ({ setModal, modal }) => {
 
     }
 
+    //guarda todos los inputs en un objecto
     const handleInputs=(e)=>{
 
         let value = e.target.value
@@ -44,6 +49,19 @@ const Modal = ({ setModal, modal }) => {
     }
 
 
+    //validar inputs y enviar datos a la App.jsx mediante la funcion guardarGasto()
+    const handleSubmit =(e)=>{
+        e.preventDefault()
+        if([nombre,cantidad,categoria].includes('')){
+            setMensaje('campos obligatorios')
+            return
+        }
+
+        guardarGasto(inputs)
+
+    }
+
+
     return (
         <div className="modal">
             <div className="cerrar-modal">
@@ -54,9 +72,14 @@ const Modal = ({ setModal, modal }) => {
                 />
             </div>
 
-            <form className={`formulario ${animarModal ? 'animar' : 'cerrar'}`}>
+            <form   
+                onSubmit={handleSubmit}
+                className={`formulario ${animarModal ? 'animar' : 'cerrar'}`}
+            >
 
                 <legend>Nuevo Gasto</legend>
+
+                {mensaje && <Mensaje tipo='error'>{mensaje}</Mensaje>}
 
                 <div className='campo'>
                     <label htmlFor='nombre'>Nombre gasto</label>

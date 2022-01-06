@@ -16,6 +16,10 @@ function App() {
    }
 
 
+   const guardarGasto =(gasto)=>{
+      console.log(gasto)
+   }
+
    return (
 
       <div>
@@ -37,7 +41,7 @@ function App() {
             </div>
          )}
 
-         {modal && (<Modal modal={modal} setModal={setModal}/>)}
+         {modal && (<Modal guardarGasto={guardarGasto} modal={modal} setModal={setModal}/>)}
 
       </div>
 
