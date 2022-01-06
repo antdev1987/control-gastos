@@ -59,6 +59,8 @@ const Modal = ({ setModal, modal, guardarGasto }) => {
 
         guardarGasto(inputs)
 
+        ocultarModal()
+
     }
 
 
