@@ -23,6 +23,7 @@ function App() {
 
    const guardarGasto = (gasto) => {
       gasto.id = generateId()
+      gasto.fecha = Date.now()
       setGastos([...gastos, gasto])
    }
 
