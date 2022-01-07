@@ -31,6 +31,7 @@ function App() {
 
       <div>
          <Header
+            gastos={gastos}
             presupuesto={presupuesto}
             setPresupuesto={setPresupuesto}
             isValidPresupuesto={isValidPresupuesto}
