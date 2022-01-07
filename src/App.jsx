@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Header from './components/Header'
+import ListadoGastos from './components/ListadoGastos'
 import Modal from './components/Modal'
 
 import generateId from './helper/generateId'
@@ -11,16 +12,16 @@ function App() {
 
    const [presupuesto, setPresupuesto] = useState(0)
    const [isValidPresupuesto, setIsValidPresupuesto] = useState(false)
-   const [modal,setModal]= useState(false)
-   const [gastos,setGastos] =  useState([])
+   const [modal, setModal] = useState(false)
+   const [gastos, setGastos] = useState([])
 
 
-   const handleModal =()=>{
+   const handleModal = () => {
       setModal(true)
    }
 
 
-   const guardarGasto =(gasto)=>{
+   const guardarGasto = (gasto) => {
       gasto.id = generateId()
       setGastos([...gastos, gasto])
    }
@@ -37,16 +38,22 @@ function App() {
 
 
          {isValidPresupuesto && (
-            <div className='nuevo-gasto'>
-               <img
-                  src={IconoNuevoGasto}
-                  alt='icono nuevo gasto'
-                  onClick={handleModal}
-               />
-            </div>
+            <>
+               <main>
+                  <ListadoGastos gastos={gastos}/>
+               </main>
+
+               <div className='nuevo-gasto'>
+                  <img
+                     src={IconoNuevoGasto}
+                     alt='icono nuevo gasto'
+                     onClick={handleModal}
+                  />
+               </div>
+            </>
          )}
 
-         {modal && (<Modal guardarGasto={guardarGasto } modal={modal} setModal={setModal}/>)}
+         {modal && (<Modal guardarGasto={guardarGasto} modal={modal} setModal={setModal} />)}
 
       </div>
 
