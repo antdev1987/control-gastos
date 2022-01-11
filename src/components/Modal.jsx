@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import Mensaje from './Mensaje'
 import CerrarBtn from '../img/cerrar.svg'
 
-const Modal = ({ setModal, modal, guardarGasto }) => {
+const Modal = ({ setModal, modal, guardarGasto,gastoEditar, setGastoEditar }) => {
 
     const [animarModal, setAnimarModal] = useState(false)
     const [inputs, setInputs] =useState({nombre:'',cantidad:0,categoria:''})
@@ -22,17 +22,27 @@ const Modal = ({ setModal, modal, guardarGasto }) => {
     const ocultarModal = () => {
 
         setAnimarModal(false)
+        setGastoEditar({})
         setTimeout(() => {
             setModal(false)
         }, 700);
 
     }
 
+    useEffect(()=>{
+        if(!!Object.entries(gastoEditar).length){
+           setInputs({
+               nombre:gastoEditar.nombre,
+               cantidad:gastoEditar.cantidad,
+               categoria:gastoEditar.categoria
+            })
+        }
+    },[gastoEditar])
+
     //guarda todos los inputs en un objecto
     const handleInputs=(e)=>{
 
         let value = e.target.value
- 
         setInputs((prev)=>{
             if(e.target.name === 'cantidad'){
                 return {
@@ -56,6 +66,8 @@ const Modal = ({ setModal, modal, guardarGasto }) => {
             setMensaje('campos obligatorios')
             return
         }
+
+
 
         guardarGasto(inputs)
 
@@ -129,7 +141,7 @@ const Modal = ({ setModal, modal, guardarGasto }) => {
 
                 <input 
                     type='submit'
-                    value='Enviar Gasto'
+                    value={!!Object.keys(gastoEditar).length ? 'Editando Gastos' : 'Enviar Gastos'}
                 />
 
             </form>
